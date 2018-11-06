@@ -33,8 +33,11 @@ module CF_Game
 		
 	# Any code added to command line game should be added below.
 
-		##Run the game
-		g.start
+		g.created_by()
+		g.start #Names aren't showing up properly
+
+		#Add menu options here
+
 		g.clearcolumns
 		g.displayframecolumnvalues
 
@@ -66,7 +69,7 @@ module CF_Game
 				puts "Invalid move, try again"
 			end
 
-			# check_for_winner
+			# check for winner
 			if g.checkwinner() == 1
 				puts "Player 1 wins!"
 			elsif g.checkwinner() == 2

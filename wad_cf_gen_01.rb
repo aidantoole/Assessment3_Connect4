@@ -27,7 +27,7 @@ module CF_Game
 		# Any code/methods aimed at passing the RSpect tests should be added below.
 
 		def created_by()
-			@myname = "Aidan Toole"
+			@myname = "Aidan, George, and Kieran"
 		end
 
 		def student_id()
