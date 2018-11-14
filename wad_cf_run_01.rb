@@ -2,6 +2,7 @@
 
 # Add any additional gems and global variables here
 require 'sinatra'
+require 'sinatra/reloader'
 
 # The file where you are to write code to pass the tests must be present in the same folder.
 # See http://rspec.codeschool.com/levels/1 for help about RSpec
@@ -17,7 +18,7 @@ module CF_Game
 	option = 0
 	turn = 0
 	placed = nil
-		
+	
 	@output.puts 'Enter "1" runs game in command-line window or "2" runs it in web browser.'
 	game = g.getinput
 	if game == "1"
@@ -44,7 +45,7 @@ module CF_Game
 		player = g.getplayer1
 		index  = 0
 		column = 0
-		finished = 0			# if finnished = 1 the game displays the winning message 
+		finished = 0			# if finished = 1 the game displays the winning message 
 		while finished == 0 do #diagonal is fixed but it's still buggy
 			#Place Piece
 			puts "pick a column from 1-6 to drop your piece"
@@ -95,6 +96,15 @@ end
 # Sinatra routes
 
 	# Any code added to output the activity messages to a browser should be added below.
+
+get '/frank-says' do
+	redirect to ('/')
+end
+
+get '/' do
+	erb :home
+
+end
 
 
 

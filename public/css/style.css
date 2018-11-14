@@ -1,0 +1,20 @@
+* { box-sizing: border-box; }
+
+html { font-size: 100%; }
+
+@font-face{
+	font-family: 'Montserrat-Bold';
+	font-style: normal;
+	src:'../fonts/Montserrat-Bold.ttf';
+}
+
+@font-face{
+	font-family: 'Montserrat-ExtraBold';
+	src:'../fonts/Montserrat-ExtraBold.ttf';
+}
+
+body {
+	/* background-color: #465060; */
+	/*background-color: #F0F0F0;*/
+	font-family:'Open Sans', sans-serif;
+}
