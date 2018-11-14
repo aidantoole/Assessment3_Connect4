@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit</title>
+</head>
+<body>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="/css/style.css"> -->
+	<div id="header">
+		<img src="zodiac_img.png" id="headerIMG">
+		<a href="/" class="menuItem">Home</a>
+<!-- 		<a href="/create" class="menuItem">Create</a> -->
+		<a href="/about" class="menuItem">About</a>
+		
+
+	<!-- 	<a href="/login">Login</a><br> -->
+		<% if $credentials %> 
+			<% if $credentials[0] != ' ' %>
+				Logged in as: 
+				<b style="color:black;">
+					<%= $credentials[0] %>
+				</b>
+				<a href="/logout" class="menuItem">Logout</a>
+
+				<% if $credentials[0] == "Admin" %>
+					<a href="/admincontrols" class="menuItem">Admin Controls</a>
+					<a href="/edit_log" class="menuItem">Edit Logs</a>
+					<a href="/edit" class="menuItem">Edit</a>
+				<% end %> 
+
+				<% else %>
+					<a href="/login" class="menuItem">Login</a>
+				<% end %>
+			<% else %>
+				<a href="/login" class="menuItem">Login</a>
+			<% end %>
+	</div>
+
+	<div class="spacer">
+		&nbsp;
+	</div>
+	<div id="admin_controls">
+	<h2>Edit article</h2>
+	<form action="/edit" method="post" id="edit">
+		<input type="hidden" name="_method" value="put">
+		<textarea rows="20" cols="90" name="message"><%= @info %></textarea>
+		<br><input type="submit" value="Update">
+	</form>
+	<%if $credentials%>
+	<% if $credentials[0] == "Admin" %>
+		<p><a href="/reset">Reset</a></p>				
+	<% end %>
+	<% if $credentials[0] == "Admin" %>
+		<p><a href="/backup">Backup</a></p>				
+	<% end %>
+	<%end%>
+	</div>
+
+
+</body>
+</html>

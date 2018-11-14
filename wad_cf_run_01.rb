@@ -102,7 +102,7 @@ get '/frank-says' do
 end
 
 get '/' do
-	erb :home
+	erb :homeCF
 
 end
 
