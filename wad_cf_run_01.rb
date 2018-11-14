@@ -34,7 +34,7 @@ module CF_Game
 	# Any code added to command line game should be added below.
 
 		g.created_by()
-		g.start #Names aren't showing up properly
+		g.start 
 
 		#Add menu options here
 
@@ -42,19 +42,26 @@ module CF_Game
 		g.displayframecolumnvalues
 
 		player = g.getplayer1
-
-		until g.checkwinner() == 1 or g.checkwinner() == 2 #This pulls errors occasionally... I think the diagonal code is a little broken
+		index  = 0
+		column = 0
+		finished = 0			# if finnished = 1 the game displays the winning message 
+		while finished == 0 do #diagonal is fixed but it's still buggy
 			#Place Piece
 			puts "pick a column from 1-6 to drop your piece"
-			column = gets.chomp.to_i
+			column = gets.chomp.to_i - 1
 
-			if (column.between?(1, 6))
+			if (column.between?(0, 5))
 				index = 6
-				while g.getcolumnvalue(index,column-1) != "_"
+				while g.getcolumnvalue(index,column) != "_"
 					index -=1
 				end
-				g.setmatrixcolumnvalue(index, column-1, player)
+				g.setmatrixcolumnvalue(index, column, player)
 				g.displayframecolumnvalues
+				if g.checkwinner(index,column,player)
+					puts "Game is done #{player} wins" #Sometimes throws a win if there's 3 in a row
+					finished = 1
+					exit
+				end
 
 				#change_turn
 				#This part is kind of awkward when someone wins but whatever
@@ -70,9 +77,9 @@ module CF_Game
 			end
 
 			# check for winner
-			if g.checkwinner() == 1
+			if g.checkwinner(index,column,player) == 1
 				puts "Player 1 wins!"
-			elsif g.checkwinner() == 2
+			elsif g.checkwinner(index,column,player) == 2
 				puts "Player 2 wins!"
 			end
 		end

@@ -148,7 +148,7 @@ module CF_Game
 			end
 			it "should contain a method created_by which returns the students name" do
 				myname = @game.created_by
-				myname.should == "Aidan Toole"	# -----Change text to your own name-----
+				myname.should == "Aidan, George, and Kieran"	# -----Change text to your own name-----
 			end
 			it "should contain a method student_id which returns the students ID number" do
 				studentid = @game.student_id
