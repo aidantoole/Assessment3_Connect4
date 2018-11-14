@@ -151,112 +151,91 @@ module CF_Game
 			@output.puts("#{title}")
 		end
 
-		def checkwinner()
 
-			# check rows
-			i = 0
-			while i < 7 do
-				#Player 1
-				if @matrix[i][0] == TOKEN1 and @matrix[i][1] == TOKEN1 and @matrix[i][2] == TOKEN1 and @matrix[i][3] == TOKEN1
-					@winner = 1
-				elsif @matrix[i][1] == TOKEN1 and @matrix[i][2] == TOKEN1 and @matrix[i][3] == TOKEN1 and @matrix[i][4] == TOKEN1
-					@winner = 1
-				elsif @matrix[i][2] == TOKEN1 and @matrix[i][3] == TOKEN1 and @matrix[i][4] == TOKEN1 and @matrix[i][5] == TOKEN1
-					@winner = 1
-				#Player 2
-				elsif @matrix[i][0] == TOKEN2 and @matrix[i][1] == TOKEN2 and @matrix[i][2] == TOKEN2 and @matrix[i][3] == TOKEN2
-					@winner = 2
-				elsif @matrix[i][1] == TOKEN2 and @matrix[i][2] == TOKEN2 and @matrix[i][3] == TOKEN2 and @matrix[i][4] == TOKEN2
-					@winner = 2
-				elsif @matrix[i][2] == TOKEN2 and @matrix[i][3] == TOKEN2 and @matrix[i][4] == TOKEN2 and @matrix[i][5] == TOKEN2
-					@winner = 2
-				end
+		def checkwinner(a, b,player)
+			vertical = 0		#(|)
+			horizontal = 0		#(-)
+			diagonal1 = 0		#(\)
+			diagonal2 = 0		#(/)
+			player = @matrix[a][b];
+			
+			#check for vertical(|)
+			i  = a
+		
+			while @matrix[i][b] == player && i <= 5 do
+				vertical = vertical + 1
+				i = i + 1 
+			end
+			
+			#Check down
+			i = a 
+			while @matrix[i][b] == player && i >= 0 do
+				vertical = vertical + 1
+				i = i - 1 
+			end
+			
+			if vertical >= 4
+				return true
+			end
+			
+			#check for horizontal(-)
+			ii = b 
+			#check left
+			while @matrix[a][ii] == player && ii>=0 do
+				ii = ii - 1
+				horizontal = horizontal + 1
+			end
+			ii = b 
+			while @matrix[a][ii] == player && ii <= 6 do
+				ii = ii + 1
+				horizontal = horizontal + 1
+			end 
+			
+			if horizontal >= 5 
+				return true
+			end
+			#check for diagonal 1 (\)
+			#up and left
+			i = a 
+			ii = b 
+			while @matrix[i][ii] == player && i>=0 && ii >= 0 do
+				i = i - 1
+				ii = ii - 1
+				diagonal1 = diagonal1 + 1
+			end
+			
+			i = a 
+			ii = b 
+			while @matrix[i][ii] == player && i<=5 && ii <=6 do
 				i = i + 1
+				ii = ii + 1
+				diagonal1 = diagonal1 + 1
+			end
+			if diagonal1 >= 4
+				return true
 			end
 
-			# check columns
-			i = 0
-			while i < 6 do
-				#Player1
-				if @matrix[0][i] == TOKEN1 and @matrix[1][i] == TOKEN1 and @matrix[2][i] == TOKEN1 and @matrix[3][i] == TOKEN1
-					@winner = 1
-				elsif @matrix[1][i] == TOKEN1 and @matrix[2][i] == TOKEN1 and @matrix[3][i] == TOKEN1 and @matrix[4][i] == TOKEN1
-					@winner = 1
-				elsif @matrix[2][i] == TOKEN1 and @matrix[3][i] == TOKEN1 and @matrix[4][i] == TOKEN1 and @matrix[5][i] == TOKEN1
-					@winner = 1
-				elsif @matrix[3][i] == TOKEN1 and @matrix[4][i] == TOKEN1 and @matrix[5][i] == TOKEN1 and @matrix[6][i] == TOKEN1
-					@winner = 1
-				#Player2
-				elsif @matrix[0][i] == TOKEN2 and @matrix[1][i] == TOKEN2 and @matrix[2][i] == TOKEN2 and @matrix[3][i] == TOKEN2
-					@winner = 2
-				elsif @matrix[1][i] == TOKEN2 and @matrix[2][i] == TOKEN2 and @matrix[3][i] == TOKEN2 and @matrix[4][i] == TOKEN2
-					@winner = 2
-				elsif @matrix[2][i] == TOKEN2 and @matrix[3][i] == TOKEN2 and @matrix[4][i] == TOKEN2 and @matrix[5][i] == TOKEN2
-					@winner = 2
-				elsif @matrix[3][i] == TOKEN2 and @matrix[4][i] == TOKEN2 and @matrix[5][i] == TOKEN2 and @matrix[6][i] == TOKEN2
-					@winner = 2
-				end
-				i = i + 1
-			end
+			#check for diagonal 2(/)
+			#up and right
+			i = a 
+			ii = b 
 
-			# check diagonals left to right
-			i = 0
-			while i < 4 do
-				#Player1
-				if @matrix[i][0] == TOKEN1 and @matrix[i+1][1] == TOKEN1 and @matrix[i+2][2] == TOKEN1 and @matrix[i+3][3] == TOKEN1
-					@winner = 1
-				elsif @matrix[i+1][0] == TOKEN1 and @matrix[i+2][1] == TOKEN1 and @matrix[i+3][2] == TOKEN1 and @matrix[i+4][3] == TOKEN1
-					@winner = 1
-				elsif @matrix[i+2][0] == TOKEN1 and @matrix[i+3][1] == TOKEN1 and @matrix[i+4][2] == TOKEN1 and @matrix[i+5][3] == TOKEN1
-					@winner = 1
-				elsif @matrix[i][1] == TOKEN1 and @matrix[i+1][2] == TOKEN1 and @matrix[i+2][3] == TOKEN1 and @matrix[i+3][4] == TOKEN1
-					@winner = 1
-				elsif @matrix[i+1][1] == TOKEN1 and @matrix[i+2][2] == TOKEN1 and @matrix[i+3][3] == TOKEN1 and @matrix[i+4][4] == TOKEN1
-					@winner = 1
-				elsif @matrix[i+2][1] == TOKEN1 and @matrix[i+3][2] == TOKEN1 and @matrix[i+4][3] == TOKEN1 and @matrix[i+5][4] == TOKEN1
-					@winner = 1
-				elsif @matrix[i][2] == TOKEN1 and @matrix[i+1][3] == TOKEN1 and @matrix[i+2][4] == TOKEN1 and @matrix[i+3][5] == TOKEN1
-					@winner = 1
-				elsif @matrix[i+1][2] == TOKEN1 and @matrix[i+2][3] == TOKEN1 and @matrix[i+3][4] == TOKEN1 and @matrix[i+4][5] == TOKEN1
-					@winner = 1
-				elsif @matrix[i+2][2] == TOKEN1 and @matrix[i+3][3] == TOKEN1 and @matrix[i+4][4] == TOKEN1 and @matrix[i+5][5] == TOKEN1
-					@winner = 1
-				elsif @matrix[i][3] == TOKEN1 and @matrix[i+1][4] == TOKEN1 and @matrix[i+2][5] == TOKEN1 and @matrix[i+3][6] == TOKEN1
-					@winner = 1
-				elsif @matrix[i+1][3] == TOKEN1 and @matrix[i+2][4] == TOKEN1 and @matrix[i+3][5] == TOKEN1 and @matrix[i+4][6] == TOKEN1
-					@winner = 1
-				elsif @matrix[i+2][3] == TOKEN1 and @matrix[i+3][4] == TOKEN1 and @matrix[i+4][5] == TOKEN1 and @matrix[i+5][6] == TOKEN1
-					@winner = 1
-				#Player2
-				elsif @matrix[i][0] == TOKEN2 and @matrix[i+1][1] == TOKEN2 and @matrix[i+2][2] == TOKEN2 and @matrix[i+3][3] == TOKEN2
-					@winner = 2
-				elsif @matrix[i+1][0] == TOKEN2 and @matrix[i+2][1] == TOKEN2 and @matrix[i+3][2] == TOKEN2 and @matrix[i+4][3] == TOKEN2
-					@winner = 2
-				elsif @matrix[i+2][0] == TOKEN2 and @matrix[i+3][1] == TOKEN2 and @matrix[i+4][2] == TOKEN2 and @matrix[i+5][3] == TOKEN2
-					@winner = 2
-				elsif @matrix[i][1] == TOKEN2 and @matrix[i+1][2] == TOKEN2 and @matrix[i+2][3] == TOKEN2 and @matrix[i+3][4] == TOKEN2
-					@winner = 2
-				elsif @matrix[i+1][1] == TOKEN2 and @matrix[i+2][2] == TOKEN2 and @matrix[i+3][3] == TOKEN2 and @matrix[i+4][4] == TOKEN2
-					@winner = 2
-				elsif @matrix[i+2][1] == TOKEN2 and @matrix[i+3][2] == TOKEN2 and @matrix[i+4][3] == TOKEN2 and @matrix[i+5][4] == TOKEN2
-					@winner = 2
-				elsif @matrix[i][2] == TOKEN2 and @matrix[i+1][3] == TOKEN2 and @matrix[i+2][4] == TOKEN2 and @matrix[i+3][5] == TOKEN2
-					@winner = 2
-				elsif @matrix[i+1][2] == TOKEN2 and @matrix[i+2][3] == TOKEN2 and @matrix[i+3][4] == TOKEN2 and @matrix[i+4][5] == TOKEN2
-					@winner = 2
-				elsif @matrix[i+2][2] == TOKEN2 and @matrix[i+3][3] == TOKEN2 and @matrix[i+4][4] == TOKEN2 and @matrix[i+5][5] == TOKEN2
-					@winner = 2
-				elsif @matrix[i][3] == TOKEN2 and @matrix[i+1][4] == TOKEN2 and @matrix[i+2][5] == TOKEN2 and @matrix[i+3][6] == TOKEN2
-					@winner = 2
-				elsif @matrix[i+1][3] == TOKEN2 and @matrix[i+2][4] == TOKEN2 and @matrix[i+3][5] == TOKEN2 and @matrix[i+4][6] == TOKEN2
-					@winner = 2
-				elsif @matrix[i+2][3] == TOKEN2 and @matrix[i+3][4] == TOKEN2 and @matrix[i+4][5] == TOKEN2 and @matrix[i+5][6] == TOKEN2
-					@winner = 2
-				end
-				i = i + 1
+			while @matrix[i][ii] == player && i>=0 && ii<=6 do
+				i = i - 1
+				ii = ii +1
+				diagonal2 = diagonal2 + 1
 			end
-
-			return @winner
+			i = a  
+			ii = b 
+			while @matrix[i][ii] == player && i<=5 && ii>=0 do
+				i = i + 1
+				ii = ii - 1
+				diagonal2 = diagonal2 + 1
+			end 
+			if diagonal2 >= 4
+				return true
+			end
+			
 		end
 
 		# Any code/methods aimed at passing the RSpect tests should be added above.
