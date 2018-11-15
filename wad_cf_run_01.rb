@@ -33,60 +33,61 @@ module CF_Game
 	if game == "1"
 		
 	# Any code added to command line game should be added below.
+		
+			g.created_by()
+			g.start 
 
-		g.created_by()
-		g.start 
+			#Add menu options here
 
-		#Add menu options here
+			g.clearcolumns
+			g.displayframecolumnvalues
 
-		g.clearcolumns
-		g.displayframecolumnvalues
+			player = g.getplayer1
+			index  = 0
+			column = 0
+			finished = 0			# if finished = 1 the game displays the winning message 
+			while finished == 0 do #diagonal is fixed but it's still buggy
+				#Place Piece
+				puts "pick a column from 1-6 to drop your piece"
+				column = gets.chomp.to_i - 1
 
-		player = g.getplayer1
-		index  = 0
-		column = 0
-		finished = 0			# if finished = 1 the game displays the winning message 
-		while finished == 0 do #diagonal is fixed but it's still buggy
-			#Place Piece
-			puts "pick a column from 1-6 to drop your piece"
-			column = gets.chomp.to_i - 1
+				if (column.between?(0, 5))
+					index = 6
+					while g.getcolumnvalue(index,column) != "_"
+						index -=1
+					end
+					g.setmatrixcolumnvalue(index, column, player)
+					g.displayframecolumnvalues
+					if g.checkwinner(index,column,player)
+						puts "Game is done #{player} wins" #Sometimes throws a win if there's 3 in a row
+						finished = 1
+						exit
+					end
 
-			if (column.between?(0, 5))
-				index = 6
-				while g.getcolumnvalue(index,column) != "_"
-					index -=1
+					#change_turn
+					#This part is kind of awkward when someone wins but whatever
+					if player == g.getplayer1
+						puts "Player 2's Turn"
+						player = g.getplayer2
+					elsif player == g.getplayer2
+						puts "Player 1's Turn"
+						player = g.getplayer1
+					end
+				else
+					puts "Invalid move, try again"
 				end
-				g.setmatrixcolumnvalue(index, column, player)
-				g.displayframecolumnvalues
-				if g.checkwinner(index,column,player)
-					puts "Game is done #{player} wins" #Sometimes throws a win if there's 3 in a row
-					finished = 1
-					exit
-				end
 
-				#change_turn
-				#This part is kind of awkward when someone wins but whatever
-				if player == g.getplayer1
-					puts "Player 2's Turn"
-					player = g.getplayer2
-				elsif player == g.getplayer2
-					puts "Player 1's Turn"
-					player = g.getplayer1
+				# check for winner
+				if g.checkwinner(index,column,player) == 1
+					puts "Player 1 wins!"
+				elsif g.checkwinner(index,column,player) == 2
+					puts "Player 2 wins!"
 				end
-			else
-				puts "Invalid move, try again"
 			end
-
-			# check for winner
-			if g.checkwinner(index,column,player) == 1
-				puts "Player 1 wins!"
-			elsif g.checkwinner(index,column,player) == 2
-				puts "Player 2 wins!"
-			end
-		end
-	
-	# Any code added to output the activity messages to the command line window should be added above.
-
+			
+		
+		# Any code added to output the activity messages to the command line window should be added above.
+			
 		exit	# Does not allow command-line game to run code below relating to web-based version
 	end
 
@@ -103,7 +104,10 @@ end
 
 get '/' do
 	erb :homeCF
+end
 
+post '/play_move' do
+	move = params[]
 end
 
 
