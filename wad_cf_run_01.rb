@@ -4,7 +4,7 @@
 require 'sinatra'
 require 'sinatra/reloader'
 
-# The file where you are to write code to pass the tests must be present in the same folder.
+# The file whe  re you are to write code to pass the tests must be present in the same folder.
 # See http://rspec.codeschool.com/levels/1 for help about RSpec
 require "#{File.dirname(__FILE__)}/wad_cf_gen_01"
 
