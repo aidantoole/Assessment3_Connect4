@@ -24,13 +24,13 @@ body {
 }
 
 #content{
-	width: 200px;
-	min-width: 200px;
+	width: 250px;
+	min-width: 250px;
 	margin: auto;
 	background-color: blue;
 	align-items: center;
 	color: white;
 	border-radius: 20px;
-	padding-bottom: 30px;
+	padding-bottom: 20px;
 
 }
