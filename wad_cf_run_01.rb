@@ -35,11 +35,25 @@ module CF_Game
 	# Any code added to command line game should be added below.
 		
 			$g.created_by()
-			$g.start 
 
-			#Add menu options here
+			#Put menu here
+			puts"Menu: type 'new' to start a new game, 'resume' to resume, or 'quit' to exit"
+			val = gets.chomp.to_s
 
-			$g.clearcolumns
+			if val == "new"
+				$g.clearcolumns
+				$g.start 
+			elsif val == "quit"
+				abort("game over")
+			elsif val == "resume" #This part needs work
+				$g.clearcolumns #This shouldn't reset right?
+				$g.start 
+			else
+				puts"Invalid input"
+				exit
+			end
+			
+			
 			$g.displayframecolumnvalues
 
 			player = $g.getplayer1
