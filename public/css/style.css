@@ -17,4 +17,20 @@ body {
 	/* background-color: #465060; */
 	/*background-color: #F0F0F0;*/
 	font-family:'Open Sans', sans-serif;
+	width: 50%;
+	margin: auto;
+	text-align: center;
+	padding: 20px;
+}
+
+#content{
+	width: 200px;
+	min-width: 200px;
+	margin: auto;
+	background-color: blue;
+	align-items: center;
+	color: white;
+	border-radius: 20px;
+	padding-bottom: 30px;
+
 }

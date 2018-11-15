@@ -9,14 +9,11 @@
 	<%if $finished == 0%>
 	<div id="play_move">
 	
-	<h2>Play Move</h2>
-	<form action="/play_move" method="post">
-		<input type="text" name="move"><br>
-		<input type="submit" value="Play">
-	</form>
+	
+
 	<%end%>
 	<%if $finished == 0%>
-	<div id="content"><%= @move %></div>
+	<div id="content1"><%= @move %></div>
 	<div id="content">
 			
 	<%$matrix.each do |row|%>
@@ -27,6 +24,12 @@
 	<%else%>
 	Player <%=$player%> wins.
 	<%end%>
+
+	<form action="/play_move" method="post">
+		<h4>Enter a column from 1 - 6</h4>
+		<input type="text" name="move"><br>
+		<input type="submit" value="Move">
+	</form>
 	 
 
 	
