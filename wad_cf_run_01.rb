@@ -130,11 +130,14 @@ post '/play_move' do
 			finished = 1
 			exit
 		end
-
 	if @finished == 1
 		exit
 	end	
-
+	if $player == 'O'
+		$player = 'X'
+	elsif $player == 'X'
+		$player = 'O'
+	end
 	erb :homeCF
 end
 
