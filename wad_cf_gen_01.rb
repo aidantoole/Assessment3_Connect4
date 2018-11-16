@@ -2,7 +2,7 @@
 # Ruby code file - All your code should be located between the comments provided.
 
 # Add any additional gems and global variables here
-# require 'sinatra'		# remove '#' character to run sinatra wen server
+ require 'sinatra'
 
 # Main class module
 module CF_Game

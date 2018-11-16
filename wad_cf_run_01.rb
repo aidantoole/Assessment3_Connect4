@@ -12,7 +12,7 @@ require "#{File.dirname(__FILE__)}/wad_cf_gen_01"
 module CF_Game
 	@input = STDIN
 	@output = STDOUT
-	g = Game.new(@input, @output)
+	$g = Game.new(@input, @output)
 	playing = true
 	input = ""
 	option = 0
@@ -20,7 +20,7 @@ module CF_Game
 	placed = nil
 	
 	@output.puts 'Enter "1" runs game in command-line window or "2" runs it in web browser.'
-	game = g.getinput
+	game = $g.getinput
 	if game == "1"
 		@output.puts "Command line game"
 	elsif game == "2"
@@ -34,15 +34,15 @@ module CF_Game
 		
 	# Any code added to command line game should be added below.
 		
-			g.created_by()
-			g.start 
+			$g.created_by()
+			$g.start 
 
 			#Add menu options here
 
-			g.clearcolumns
-			g.displayframecolumnvalues
+			$g.clearcolumns
+			$g.displayframecolumnvalues
 
-			player = g.getplayer1
+			player = $g.getplayer1
 			index  = 0
 			column = 0
 			finished = 0			# if finished = 1 the game displays the winning message 
@@ -53,12 +53,12 @@ module CF_Game
 
 				if (column.between?(0, 5))
 					index = 6
-					while g.getcolumnvalue(index,column) != "_"
+					while $g.getcolumnvalue(index,column) != "_"
 						index -=1
 					end
-					g.setmatrixcolumnvalue(index, column, player)
-					g.displayframecolumnvalues
-					if g.checkwinner(index,column,player)
+					$g.setmatrixcolumnvalue(index, column, player)
+					$g.displayframecolumnvalues
+					if $g.checkwinner(index,column,player)
 						puts "Game is done #{player} wins" #Sometimes throws a win if there's 3 in a row
 						finished = 1
 						exit
@@ -66,21 +66,21 @@ module CF_Game
 
 					#change_turn
 					#This part is kind of awkward when someone wins but whatever
-					if player == g.getplayer1
+					if player == $g.getplayer1
 						puts "Player 2's Turn"
-						player = g.getplayer2
-					elsif player == g.getplayer2
+						player = $g.getplayer2
+					elsif player == $g.getplayer2
 						puts "Player 1's Turn"
-						player = g.getplayer1
+						player = $g.getplayer1
 					end
 				else
 					puts "Invalid move, try again"
 				end
 
 				# check for winner
-				if g.checkwinner(index,column,player) == 1
+				if $g.checkwinner(index,column,player) == 'O'
 					puts "Player 1 wins!"
-				elsif g.checkwinner(index,column,player) == 2
+				elsif $g.checkwinner(index,column,player) == 'X'
 					puts "Player 2 wins!"
 				end
 			end
@@ -98,16 +98,20 @@ end
 
 	# Any code added to output the activity messages to a browser should be added below.
 
+@move = "asd"
 get '/frank-says' do
 	redirect to ('/')
 end
 
 get '/' do
+	@move = "asd"
+	$g.clearcolumns
 	erb :homeCF
 end
 
 post '/play_move' do
-	move = params[]
+	@move = params[:move]
+	erb :homeCF
 end
 
 

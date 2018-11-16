@@ -8,13 +8,17 @@
 	<h1>Welcome to Connect 4</h1>
 
 	<div id="play_move">
+	
 	<h2>Play Move</h2>
 	<form action="/play_move" method="post">
 		<input type="text" name="move"><br>
 		<input type="submit" value="Play">
 	</form>
+	<div id="content"><%= @move %></div>
+	<div id="content"><%= $g.displayframecolumnvalues %></div>
+	
 
-
+	
 
 
 </body>
