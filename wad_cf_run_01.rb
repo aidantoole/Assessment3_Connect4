@@ -129,18 +129,35 @@ get '/frank-says' do
 end
 
 get '/' do
-	@move = ""
 	erb :homeCF
 end
 
-post '/play_move' do
+post '/' do
 	$invalid = 0
+	option = params[:option]
+	
 	if $finished == 0 
 		move = params[:move]
 		if is_number(move) == false || move.to_i > 6 || move.to_i < 0
 			$invalid = 1
 		end   
-		column = move.to_i - 1
+		option = params[:option]
+		if option == "quit"
+			$g.clearcolumns
+			$invalid = 0
+		end
+		if option == "resume"
+			$g.load_previous()
+			$invalid = 0
+		end
+		if option == "new"
+			$g.clearcolumns
+		end
+		if option == "save"
+			$g.save_matrix()
+			$invalid = 0
+		end
+			column = move.to_i - 1
 		@player = $g.getplayer1
 		if (column.between?(0, 5))
 			index = 6
@@ -154,9 +171,9 @@ post '/play_move' do
 				$finished = 1
 			end
 		end	
-		if $player == 'O' && $finished == 0
+		if $player == 'O' && $finished == 0 && $invalid == 0
 			$player = 'X'
-		elsif $player == 'X' && $finished == 0
+		elsif $player == 'X' && $finished == 0 && $invalid == 0
 			$player = 'O'
 		end
 	end

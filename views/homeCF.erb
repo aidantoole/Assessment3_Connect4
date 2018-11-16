@@ -30,13 +30,17 @@
 	Player <%=$player%> wins.
 	<%end%>
 
-	<form action="/play_move" method="post">
+	<form action="/" method="post">
 		<h4>Enter a column from 1 - 6</h4>
 		<input type="text" name="move"><br>
 		<input type="submit" value="Move">
 	</form>
-	 
-
+	
+	<form action="/" method="post">
+		<h3>Menu<h3><h5> insert:<br> "new" to start new game<br>"resume" to resume<br> "quit" to exit<br>"save" to save</h5>
+		<input type="text" name="option"><br>
+		<input type="submit" value="Select">
+	</form>
 	
 
 
