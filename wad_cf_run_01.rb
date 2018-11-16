@@ -117,7 +117,7 @@ $g.clearcolumns
 $player = $g.getplayer1
 @index  = 0
 @column = 0
-@finished = 0	
+$finished = 0	
 get '/frank-says' do
 	redirect to ('/')
 end
@@ -128,29 +128,27 @@ get '/' do
 end
 
 post '/play_move' do
-	move = params[:move]
-	column = move.to_i - 1 
-	@player = $g.getplayer1
-	if (column.between?(0, 5))
-		index = 6
-		while $matrix[index][column] != "_"
-			index -=1
+	if $finished == 0 
+		move = params[:move]
+		column = move.to_i - 1 
+		@player = $g.getplayer1
+		if (column.between?(0, 5))
+			index = 6
+			while $matrix[index][column] != "_"
+				index -=1
+			end
+			if $matrix[index][column] == "_"
+				$matrix[index][column]= $player
+			end
+			if $g.checkwinner(index,column,$player)				
+				$finished = 1
+			end
+		end	
+		if $player == 'O'
+			$player = 'X'
+		elsif $player == 'X'
+			$player = 'O'
 		end
-		if $matrix[index][column] == "_"
-			$matrix[index][column]= $player
-		end
-		if $g.checkwinner(index,column,$player)
-			puts "Game is done #{player} wins"				#add some ifs so that if the game has been won just the win message is displayed
-			finished = 1
-			exit
-		end
-	if @finished == 1
-		exit
-	end	
-	if $player == 'O'
-		$player = 'X'
-	elsif $player == 'X'
-		$player = 'O'
 	end
 	erb :homeCF
 end
@@ -160,4 +158,3 @@ end
 	# Any code added to output the activity messages to a browser should be added above.
 
 # End program
-end

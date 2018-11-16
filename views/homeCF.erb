@@ -6,7 +6,7 @@
 <body>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<h1>Welcome to Connect 4</h1>
-
+	<%if $finished == 0%>
 	<div id="play_move">
 	
 	<h2>Play Move</h2>
@@ -14,7 +14,8 @@
 		<input type="text" name="move"><br>
 		<input type="submit" value="Play">
 	</form>
-	
+	<%end%>
+	<%if $finished == 0%>
 	<div id="content"><%= @move %></div>
 	<div id="content">
 			
@@ -23,6 +24,9 @@
 	<%=str%>
 	<%end%>
 	</div>
+	<%else%>
+	Player <%=$player%> wins.
+	<%end%>
 	 
 
 	
