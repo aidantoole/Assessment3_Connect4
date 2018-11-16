@@ -111,13 +111,19 @@ end
 # Sinatra routes
 
 	# Any code added to output the activity messages to a browser should be added below.
+def is_number string
+	true if Float(string) rescue false
+  end
+
 
 $g.start 
 $g.clearcolumns
 $player = $g.getplayer1
 @index  = 0
 @column = 0
-$finished = 0	
+$finished = 0
+$invalid = 0
+
 get '/frank-says' do
 	redirect to ('/')
 end
@@ -128,9 +134,13 @@ get '/' do
 end
 
 post '/play_move' do
+	$invalid = 0
 	if $finished == 0 
 		move = params[:move]
-		column = move.to_i - 1 
+		if is_number(move) == false || move.to_i > 6 || move.to_i < 0
+			$invalid = 1
+		end   
+		column = move.to_i - 1
 		@player = $g.getplayer1
 		if (column.between?(0, 5))
 			index = 6
@@ -144,9 +154,9 @@ post '/play_move' do
 				$finished = 1
 			end
 		end	
-		if $player == 'O'
+		if $player == 'O' && $finished == 0
 			$player = 'X'
-		elsif $player == 'X'
+		elsif $player == 'X' && $finished == 0
 			$player = 'O'
 		end
 	end

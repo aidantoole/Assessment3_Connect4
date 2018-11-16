@@ -15,6 +15,10 @@
 		<input type="submit" value="Play">
 	</form>
 	<%end%>
+	<%if $invalid == 1%>
+		<%$invalid = 0%>
+		<h2> Invalid Move ! Play again. </h2>
+	<%end%>
 	<%if $finished == 0%>
 	<div id="content"><%= @move %></div>
 	<div id="content">
