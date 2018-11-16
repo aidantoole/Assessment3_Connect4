@@ -15,8 +15,14 @@
 		<input type="submit" value="Play">
 	</form>
 	<div id="content"><%= @move %></div>
-	<div id="content"><%= $g.displayframecolumnvalues %></div>
-	
+	<div id="content">
+			
+	<%$matrix.each do |row|%>
+	<%str = ' '+row.join(' ')%><br>
+	<%=str%>
+	<%end%>
+	</div>
+	 
 
 	
 

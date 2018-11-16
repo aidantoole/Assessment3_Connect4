@@ -97,20 +97,35 @@ end
 # Sinatra routes
 
 	# Any code added to output the activity messages to a browser should be added below.
+	def with_captured_stdout()
+		original_stdout = $stdout
+		$stdout = StringIO.new
+		yield
+		$stdout.string
+	  ensure
+		$stdout = original_stdout
+	  end
 
-@move = "asd"
+
+$g.start 
+$g.clearcolumns
+@str = with_captured_stdout{$g.displayframecolumnvalues}
+
 get '/frank-says' do
 	redirect to ('/')
 end
 
 get '/' do
 	@move = "asd"
-	$g.clearcolumns
+	#@str = "asdasdas"
+	@str = with_captured_stdout{$g.displayframecolumnvalues}
+
 	erb :homeCF
 end
 
 post '/play_move' do
 	@move = params[:move]
+	@str = with_captured_stdout{$g.displayframecolumnvalues}
 	erb :homeCF
 end
 

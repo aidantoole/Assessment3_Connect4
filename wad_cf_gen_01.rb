@@ -103,7 +103,7 @@ module CF_Game
 		end
 
 		def clearcolumns
-			@matrix = [
+			$matrix = [
 				["_", "_", "_", "_", "_", "_"],
 				["_", "_", "_", "_", "_", "_"],
 				["_", "_", "_", "_", "_", "_"],
@@ -115,13 +115,13 @@ module CF_Game
 		end
 
 		def getcolumnvalue(one, two)
-			@matrix[one][two]
+			$matrix[one][two]
 			# "_"
 		end
 
 		def setmatrixcolumnvalue(c, i, v)
-			if @matrix[c][i] == "_"
-				@matrix[c][i]=v
+			if $matrix[c][i] == "_"
+				$matrix[c][i]=v
 			end
 		end
 
@@ -141,13 +141,12 @@ module CF_Game
 		end
 
 		def displayframecolumnvalues
-			@matrix.each do |row|
-				puts ' ' + row.join(' ')
+			$matrix.each do |row|
+				print ' ' + row.join(' ') +"\n"
 			end
 
 			title = " 1 2 3 4 5 6 "
-			rowdivider = "+-+-+-+-+-+-+-+"
-			rowempty = "|_|_|_|_|_|_|_|"
+			
 			@output.puts("#{title}")
 		end
 
@@ -157,19 +156,19 @@ module CF_Game
 			horizontal = 0		#(-)
 			diagonal1 = 0		#(\)
 			diagonal2 = 0		#(/)
-			player = @matrix[a][b];
+			player = $matrix[a][b];
 			
 			#check for vertical(|)
 			i  = a
 		
-			while @matrix[i][b] == player && i <= 5 do
+			while $matrix[i][b] == player && i <= 5 do
 				vertical = vertical + 1
 				i = i + 1 
 			end
 			
 			#Check down
 			i = a 
-			while @matrix[i][b] == player && i >= 0 do
+			while $matrix[i][b] == player && i >= 0 do
 				vertical = vertical + 1
 				i = i - 1 
 			end
@@ -181,12 +180,12 @@ module CF_Game
 			#check for horizontal(-)
 			ii = b 
 			#check left
-			while @matrix[a][ii] == player && ii>=0 do
+			while $matrix[a][ii] == player && ii>=0 do
 				ii = ii - 1
 				horizontal = horizontal + 1
 			end
 			ii = b 
-			while @matrix[a][ii] == player && ii <= 6 do
+			while $matrix[a][ii] == player && ii <= 6 do
 				ii = ii + 1
 				horizontal = horizontal + 1
 			end 
@@ -198,7 +197,7 @@ module CF_Game
 			#up and left
 			i = a 
 			ii = b 
-			while @matrix[i][ii] == player && i>=0 && ii >= 0 do
+			while $matrix[i][ii] == player && i>=0 && ii >= 0 do
 				i = i - 1
 				ii = ii - 1
 				diagonal1 = diagonal1 + 1
@@ -206,7 +205,7 @@ module CF_Game
 			
 			i = a 
 			ii = b 
-			while @matrix[i][ii] == player && i<=5 && ii <=6 do
+			while $matrix[i][ii] == player && i<=5 && ii <=6 do
 				i = i + 1
 				ii = ii + 1
 				diagonal1 = diagonal1 + 1
@@ -220,14 +219,14 @@ module CF_Game
 			i = a 
 			ii = b 
 
-			while @matrix[i][ii] == player && i>=0 && ii<=6 do
+			while $matrix[i][ii] == player && i>=0 && ii<=6 do
 				i = i - 1
 				ii = ii +1
 				diagonal2 = diagonal2 + 1
 			end
 			i = a  
 			ii = b 
-			while @matrix[i][ii] == player && i<=5 && ii>=0 do
+			while $matrix[i][ii] == player && i<=5 && ii>=0 do
 				i = i + 1
 				ii = ii - 1
 				diagonal2 = diagonal2 + 1
