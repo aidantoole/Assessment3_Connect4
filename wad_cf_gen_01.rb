@@ -116,7 +116,6 @@ module CF_Game
 
 		def getcolumnvalue(one, two)
 			$matrix[one][two]
-			# "_"
 		end
 
 		def setmatrixcolumnvalue(c, i, v)

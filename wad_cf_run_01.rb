@@ -97,35 +97,44 @@ end
 # Sinatra routes
 
 	# Any code added to output the activity messages to a browser should be added below.
-	def with_captured_stdout()
-		original_stdout = $stdout
-		$stdout = StringIO.new
-		yield
-		$stdout.string
-	  ensure
-		$stdout = original_stdout
-	  end
-
 
 $g.start 
 $g.clearcolumns
-@str = with_captured_stdout{$g.displayframecolumnvalues}
-
+$player = $g.getplayer1
+@index  = 0
+@column = 0
+@finished = 0	
 get '/frank-says' do
 	redirect to ('/')
 end
 
 get '/' do
 	@move = "asd"
-	#@str = "asdasdas"
-	@str = with_captured_stdout{$g.displayframecolumnvalues}
-
 	erb :homeCF
 end
 
 post '/play_move' do
-	@move = params[:move]
-	@str = with_captured_stdout{$g.displayframecolumnvalues}
+	move = params[:move]
+	column = move.to_i - 1 
+	@player = $g.getplayer1
+	if (column.between?(0, 5))
+		index = 6
+		while $matrix[index][column] != "_"
+			index -=1
+		end
+		if $matrix[index][column] == "_"
+			$matrix[index][column]= $player
+		end
+		if $g.checkwinner(index,column,$player)
+			puts "Game is done #{player} wins"				#add some ifs so that if the game has been won just the win message is displayed
+			finished = 1
+			exit
+		end
+
+	if @finished == 1
+		exit
+	end	
+
 	erb :homeCF
 end
 
@@ -134,3 +143,4 @@ end
 	# Any code added to output the activity messages to a browser should be added above.
 
 # End program
+end
