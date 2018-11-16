@@ -3,7 +3,7 @@
 
 # Add any additional gems and global variables here
  require 'sinatra'
-
+ require 'yaml'
 # Main class module
 module CF_Game
 	# Input and output constants processed by subprocesses. MUST NOT change.
@@ -40,6 +40,7 @@ module CF_Game
 			@output.puts "Game started."
 			@output.puts "Player 1: O and Player 2: X"
 			@output.puts "Enter column number to place token."
+		
 		end
 		
 		def displaybegingame
@@ -124,6 +125,8 @@ module CF_Game
 			end
 		end
 
+
+
 		def displayemptyframe
 			title = " 1 2 3 4 5 6 7 "
 			rowdivider = "+-+-+-+-+-+-+-+"
@@ -149,7 +152,13 @@ module CF_Game
 			@output.puts("#{title}")
 		end
 
+		def load_previous()
+			$matrix = YAML.load(File.read("resume.yml"))
+		end
 
+		def save_matrix()
+			File.open("resume.yml", "w") { |file| file.write($matrix.to_yaml) }
+		end
 		def checkwinner(a, b,player)
 			vertical = 0		#(|)
 			horizontal = 0		#(-)

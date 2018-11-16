@@ -46,8 +46,7 @@ module CF_Game
 			elsif val == "quit"
 				abort("game over")
 			elsif val == "resume" #This part needs work
-				$g.clearcolumns #This shouldn't reset right?
-				$g.start 
+				$g.load_previous() 
 			else
 				puts"Invalid input"
 				exit
@@ -87,6 +86,7 @@ module CF_Game
 						puts "Player 1's Turn"
 						player = $g.getplayer1
 					end
+					$g.save_matrix()
 				else
 					puts "Invalid move, try again"
 				end
