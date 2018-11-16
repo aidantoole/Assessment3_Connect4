@@ -129,7 +129,7 @@ get '/frank-says' do
 end
 
 get '/' do
-	@move = "asd"
+	@move = ""
 	erb :homeCF
 end
 
