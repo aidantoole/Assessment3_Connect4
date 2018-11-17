@@ -135,7 +135,10 @@ end
 post '/' do
 	$invalid = 0
 	option = params[:option]
-	
+	if option == "new"
+		$g.clearcolumns
+		$finished = 0
+	end
 	if $finished == 0 
 		move = params[:move]
 		if is_number(move) == false || move.to_i > 6 || move.to_i < 0
